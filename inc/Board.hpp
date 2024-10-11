@@ -8,6 +8,7 @@
 # include <map>
 # include <regex>
 # include "Tile.hpp"
+# include "Player.hpp"
 
 # define RESET		"\033[0m"
 # define RED		"\033[31m"
@@ -86,6 +87,9 @@ class Board
 		std::vector<std::vector<Tile> >			_board;
 		std::map<char, std::pair<int, int> >	_letters;
 		std::unordered_set<std::string>			_dict;
+
+		Player	_opponent;
+		Player	_player;
 
 		bool	_turn;
 		bool	_firstTurn;

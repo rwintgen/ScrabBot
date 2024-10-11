@@ -14,6 +14,7 @@ SRCS = main.cpp \
 	   $(SRC_DIR)/Game/Board.cpp \
 	   $(SRC_DIR)/Game/GettersSetters.cpp \
 	   $(SRC_DIR)/Game/Logic.cpp \
+	   $(SRC_DIR)/Game/Player.cpp \
 	   $(SRC_DIR)/Game/Utils.cpp \
 	   $(SRC_DIR)/Game/Tile.cpp \
 

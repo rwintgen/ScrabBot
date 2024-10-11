@@ -2,7 +2,7 @@
 #include "Tile.hpp"
 
 // TODO
-// check if a word played is overlaping another one
+// implement player class
 // add points counting system (has to be incremented at each turn)
 // work on algo and prompt for validation
 
