@@ -42,27 +42,29 @@ void Board::opponentPlay(void)
 	t_dir	checkF = checkFrontiers(x, y, word, checkW);
 	std::cout << "DEBUG checkF: " << checkF << std::endl;
 
-	while (std::cin && checkW == BOTH && checkF == BOTH && word.size() > 1)
+	t_dir	finalCheck;
+
+	if (checkW == checkF)
+		finalCheck = checkW;
+	else if (checkW == BOTH || checkF == BOTH)
+		finalCheck = (checkW < checkF) ? checkW : checkF;
+	std::cout << "DEBUG finalCheck: " << checkF << std::endl;
+
+	while (std::cin && finalCheck == BOTH && word.size() > 1)
 	{
 		std::cout << "How did your opponent play? (RIGHT/DOWN): ";
 		std::getline(std::cin, input);
 		std::transform(input.begin(), input.end(), input.begin(), ::toupper);
 		if (input == "RIGHT")
-		{
-			checkW = RIGHT;
-			checkF = RIGHT;
-		}
+			finalCheck = RIGHT;
 		else if (input == "DOWN")
-		{
-			checkW = DOWN;
-			checkF = DOWN;
-		}
+			finalCheck = DOWN;
 	}
 
 	// TODO fix logic here.
-	if (checkW == RIGHT && checkF == RIGHT)
+	if (finalCheck == RIGHT)
 		playWord(x, y, word, RIGHT, PLAY);
-	else if (checkW == DOWN && checkF == DOWN)
+	else if (finalCheck == DOWN)
 		playWord(x, y, word, DOWN, PLAY);
 	else
 		throw std::logic_error("Error: invalid move.");

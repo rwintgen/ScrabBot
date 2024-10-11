@@ -47,8 +47,8 @@ std::string	Board::collectWord(const Board &tmpBoard, int startX, int startY, t_
 		while (currentX < BOARD_SIZE && dir == RIGHT && tmpBoard._board[currentY][currentX].getLetter() != EMPTY)
 			fullWord += tmpBoard._board[currentY][currentX++].getLetter();
 
-		if (fullWord.size() > 1)
-			std::cout << "DEBUG fullWord: " << fullWord << std::endl;
+		// if (fullWord.size() > 1)
+			// std::cout << "DEBUG fullWord: " << fullWord << std::endl;
 		return (fullWord);
 }
 
@@ -58,6 +58,8 @@ t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 	Tile	currentTile;
 	bool 	right = false;
 	bool 	down = false;
+	int		currentX = x;
+	int		currentY = y;
 
 	if (_firstTurn)
 		return (BOTH);
@@ -66,40 +68,76 @@ t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 	{
 		for (size_t i = 0; i < word.size(); i++)
 		{
-			currentTile = getTile(x, y);
-			// check for prefix
-			if (i == 0 && x > 0 && getTile(x - 1, y).getLetter() != EMPTY)
+			currentTile = getTile(currentX, currentY);
+
+			// std::cout << "DEBUG RIGHT current letter: " << word[i] << std::endl;
+
+			if (i >= 0 && i <= word.size() - 1 && \
+				(getTile(currentX - 1, currentY).getLetter() != EMPTY || \
+				getTile(currentX + 1, currentY).getLetter() != EMPTY))
+			// {
 				right = true;
-			// check for suffix
-			else if (i == word.size() - 1 && x < BOARD_SIZE - 1 && getTile(x + 1, y).getLetter() != EMPTY) 
+			// 	std::cout << "DEBUG condition 1" << std::endl;
+			// 	std::cout << "DEBUG tile above: " << getTile(currentX - 1, currentY).getLetter() << std::endl;
+			// 	std::cout << "DEBUG tile below: " << getTile(currentX + 1, currentY).getLetter() << std::endl;
+			// }
+
+			if (i == 0 && currentX > 0 && getTile(currentX, currentY - 1).getLetter() != EMPTY)
+			// {
 				right = true;
-			// check for above and below letters
-			else if (i > 0 && i < word.size() - 1 && \
-						(getTile(x - 1, y).getLetter() != EMPTY || getTile(x + 1, y).getLetter() != EMPTY))
+			// 	std::cout << "DEBUG condition 2" << std::endl;
+			// 	std::cout << "DEBUG prefix: " << getTile(currentX, currentY - 1).getLetter() << std::endl;
+			// }
+			if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX, currentY + 1).getLetter() != EMPTY) 
+			// {
 				right = true;
-			x++;
+			// 	std::cout << "DEBUG condition 3" << std::endl;
+			// 	std::cout << "DEBUG suffix: " << getTile(currentX, currentY + 1).getLetter() << std::endl;
+			// }
+			currentY++;
 		}
-		std::cout << "DEBUG right: word is not connected" << std::endl;
+		// if (right == false)
+		// 	std::cout << "DEBUG right: word is not connected" << std::endl;
 	}
-	else if (dir == DOWN || dir == BOTH)
+
+	currentX = x;
+	currentY = y;
+
+	if (dir == DOWN || dir == BOTH)
 	{
 		for (size_t i = 0; i < word.size(); i++)
 		{
-			currentTile = getTile(x, y);
-			// check for prefix
-			if (i == 0 && y > 0 && getTile(x, y - 1).getLetter() != EMPTY)
+			currentTile = getTile(currentX, currentY);
+
+			// std::cout << "DEBUG DOWN current letter: " << word[i] << std::endl;
+
+			if (i >= 0 && i <= word.size() - 1 && \
+				(getTile(currentX, currentY - 1).getLetter() != EMPTY || \
+				getTile(currentX, currentY + 1).getLetter() != EMPTY))
+			// {
 				down = true;
-			// check for suffix
-			else if (i == word.size() - 1 && y < BOARD_SIZE - 1 && getTile(x, y + 1).getLetter() != EMPTY) 
+			// 	std::cout << "DEBUG condition 4" << std::endl;
+			// 	std::cout << "DEBUG tile left: " << getTile(currentX, currentY - 1).getLetter() << std::endl;
+			// 	std::cout << "DEBUG tile right: " << getTile(currentX, currentY + 1).getLetter() << std::endl;
+			// }
+			if (i == 0 && currentY > 0 && getTile(currentX - 1, currentY).getLetter() != EMPTY)
+			// {
 				down = true;
-			// check for left and right letters
-			else if (i > 0 && i < word.size() - 1 && \
-						(getTile(x, y - 1).getLetter() != EMPTY || getTile(x, y + 1).getLetter() != EMPTY))
+			// 	std::cout << "DEBUG prefix: " << getTile(currentX - 1, currentY).getLetter() << std::endl;
+			// }
+			if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX + 1, currentY).getLetter() != EMPTY) 
+			// {
 				down = true;
-			y++;
+			// 	std::cout << "DEBUG suffix: " << getTile(currentX + 1, currentY).getLetter() << std::endl;
+			// }
+			currentX++;
 		}
-		std::cout << "DEBUG down: word is not connected" << std::endl;
+		// if (down == false)
+		// 	std::cout << "DEBUG down: word is not connected" << std::endl;
 	}
+
+	// std::cout << "DEBUG right: " << right << std::endl;
+	// std::cout << "DEBUG down: " << down << std::endl;
 	if (right && down)
 		return (BOTH);
 	else if (right)
