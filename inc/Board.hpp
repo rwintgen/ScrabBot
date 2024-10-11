@@ -37,8 +37,8 @@ typedef enum e_dir
 typedef enum e_lang
 {
 	ENGLISH,
-	FRENCH,
-	SPANISH
+	FRENCH
+	// SPANISH
 }				t_lang;
 
 class Board

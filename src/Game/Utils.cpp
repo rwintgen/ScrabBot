@@ -7,15 +7,35 @@ Board::Board() : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 	initDict();
 	initBoard();
 	initTurn();
-	_letters =
+
+	switch (_gameLanguage)
 	{
-		{'A', {9, 1}}, {'B', {2, 3}}, {'C', {2, 3}}, {'D', {4, 2}}, {'E', {12, 1}},
-		{'F', {2, 4}}, {'G', {3, 2}}, {'H', {2, 4}}, {'I', {9, 1}}, {'J', {1, 8}},
-		{'K', {1, 5}}, {'L', {4, 1}}, {'M', {2, 3}}, {'N', {6, 1}}, {'O', {8, 1}},
-		{'P', {2, 3}}, {'Q', {1, 10}}, {'R', {6, 1}}, {'S', {4, 1}}, {'T', {6, 1}},
-		{'U', {4, 1}}, {'V', {2, 4}}, {'W', {2, 4}}, {'X', {1, 8}}, {'Y', {2, 4}},
-		{'Z', {1, 10}}
-	};
+	case ENGLISH:
+		_letters =
+		{
+			{'A', {9, 1}}, {'B', {2, 3}}, {'C', {2, 3}}, {'D', {4, 2}}, {'E', {12, 1}},
+			{'F', {2, 4}}, {'G', {3, 2}}, {'H', {2, 4}}, {'I', {9, 1}}, {'J', {1, 8}},
+			{'K', {1, 5}}, {'L', {4, 1}}, {'M', {2, 3}}, {'N', {6, 1}}, {'O', {8, 1}},
+			{'P', {2, 3}}, {'Q', {1, 10}}, {'R', {6, 1}}, {'S', {4, 1}}, {'T', {6, 1}},
+			{'U', {4, 1}}, {'V', {2, 4}}, {'W', {2, 4}}, {'X', {1, 8}}, {'Y', {2, 4}},
+			{'Z', {1, 10}}, {'_', {2, 0}}
+		};
+		break ;
+	case FRENCH:
+		_letters =
+		{
+			{'A', {9, 1}}, {'B', {2, 3}}, {'C', {2, 3}}, {'D', {3, 2}}, {'E', {15, 1}},
+			{'F', {2, 4}}, {'G', {2, 2}}, {'H', {2, 4}}, {'I', {8, 1}}, {'J', {1, 8}},
+			{'K', {1, 10}}, {'L', {5, 1}}, {'M', {3, 2}}, {'N', {6, 1}}, {'O', {6, 1}},
+			{'P', {2, 3}}, {'Q', {1, 8}}, {'R', {6, 1}}, {'S', {6, 1}}, {'T', {6, 1}},
+			{'U', {6, 1}}, {'V', {2, 4}}, {'W', {1, 10}}, {'X', {1, 10}}, {'Y', {1, 10}},
+			{'Z', {1, 10}}, {'_', {2, 0}}
+		};
+		break ;	
+	default:
+		break ;
+	}
+
 }
 
 Board::Board(const Board &src)
@@ -184,17 +204,17 @@ void Board::initLanguage()
 {
 	std::string	input;
 
-	while (std::cin && input != "EN" && input != "FR" && input != "ES")
+	while (std::cin && input != "EN" && input != "FR"/* && input != "ES"*/)
 	{
-		std::cout << "Select language (EN/FR/ES): ";
+		std::cout << "Select language (EN/FR): ";
 		std::getline(std::cin, input);
 		std::transform(input.begin(), input.end(), input.begin(), ::toupper);
 		if (input == "EN")
 			_gameLanguage = ENGLISH;
 		else if (input == "FR")
 			_gameLanguage = FRENCH;
-		else if (input == "ES")
-			_gameLanguage = SPANISH;
+		// else if (input == "ES")
+		// 	_gameLanguage = SPANISH;
 		else
 			continue ;
 	}
@@ -213,9 +233,9 @@ void Board::initDict(void)
 		case FRENCH:
 			file.open("dicts/FR_dict.txt");
 			break;
-		case SPANISH:
-			file.open("dicts/ES_dict.txt");
-			break;
+		// case SPANISH:
+		// 	file.open("dicts/ES_dict.txt");
+		// 	break;
 		default:
 			throw std::logic_error("Error: invalid language.");
 			break;
