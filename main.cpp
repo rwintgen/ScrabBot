@@ -2,9 +2,10 @@
 #include "Tile.hpp"
 
 // TODO
-// for FR and ES, set the appropriate quantity and score for each letter
-// check if a word played is overlaying another one
+// check if a word played is overlaping another one
 // add points counting system (has to be incremented at each turn)
+// work on algo and prompt for validation
+
 int main(void)
 {
 	try

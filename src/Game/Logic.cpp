@@ -1,13 +1,9 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
-// TODO
-// add check for same word played twice at same place
-// and check for same word played twice?
 t_dir Board::checkWord(int x, int y, std::string word)
 {
 	Board tmpBoard = *this;
-
 	bool validRight = false;
 	bool validDown = false;
 

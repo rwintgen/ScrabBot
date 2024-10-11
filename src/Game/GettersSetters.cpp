@@ -29,7 +29,7 @@ const Tile& Board::getTile(int x, int y) const
 void Board::setTurn(void)
 {
 	_turn = !_turn;
-	std::cout << "DEBUG turn: " << _turn << std::endl;
+	// std::cout << "DEBUG turn: " << _turn << std::endl;
 }
 
 bool Board::getTurn(void) const

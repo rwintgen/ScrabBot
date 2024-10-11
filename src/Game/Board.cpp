@@ -74,6 +74,7 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 {
 	Tile	tmpTile;
 	bool	isCenter = false;
+	bool	placedATile = false;
 
 	for (size_t i = 0; i < word.size(); i++)
 	{
@@ -87,7 +88,11 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 			return (false);
 
 		if (mode == PLAY)
+		{
 			setTile(x, y, word[i]);
+			if (placedATile == false && tmpTile.getLetter() != word[i])
+				placedATile = true;
+		}
 
 		if (y == 7 && x == 7)
 			isCenter = true;
@@ -98,7 +103,7 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 			y++;
 	}
 
-	if (_firstTurn && !isCenter)
+	if ((_firstTurn && !isCenter) || placedATile == false)
 		return (false);
 	
 	if (mode == PLAY)
