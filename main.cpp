@@ -3,7 +3,8 @@
 
 // TODO
 // for FR and ES, set the appropriate quantity and score for each letter
-// Add floodfill to check if word is connected to existing tiles
+// check if a word played is overlaying another one
+// add points counting system (has to be incremented at each turn)
 int main(void)
 {
 	try
