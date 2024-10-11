@@ -37,25 +37,32 @@ void Board::opponentPlay(void)
 	// std::cout << "DEBUG y: " << y << std::endl;
 	// std::cout << "DEBUG x: " << x << std::endl;
 
-	int		check = checkWord(x, y, word);
+	t_dir	checkW = checkWord(x, y, word);
+	std::cout << "DEBUG checkW: " << checkW << std::endl;
+	t_dir	checkF = checkFrontiers(x, y, word, checkW);
+	std::cout << "DEBUG checkF: " << checkF << std::endl;
 
-	while (std::cin && check == BOTH && word.size() > 1)
+	while (std::cin && checkW == BOTH && checkF == BOTH && word.size() > 1)
 	{
 		std::cout << "How did your opponent play? (RIGHT/DOWN): ";
 		std::getline(std::cin, input);
 		std::transform(input.begin(), input.end(), input.begin(), ::toupper);
 		if (input == "RIGHT")
-			check = RIGHT;
+		{
+			checkW = RIGHT;
+			checkF = RIGHT;
+		}
 		else if (input == "DOWN")
-			check = DOWN;
+		{
+			checkW = DOWN;
+			checkF = DOWN;
+		}
 	}
 
-	if (checkFrontiers(check) == false)
-		throw std::logic_error("Error: word must be connected to existing tiles.");
-
-	if (check == RIGHT)
+	// TODO fix logic here.
+	if (checkW == RIGHT && checkF == RIGHT)
 		playWord(x, y, word, RIGHT, PLAY);
-	else if (check == DOWN)
+	else if (checkW == DOWN && checkF == DOWN)
 		playWord(x, y, word, DOWN, PLAY);
 	else
 		throw std::logic_error("Error: invalid move.");

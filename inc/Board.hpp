@@ -66,9 +66,9 @@ class Board
 
 		// Game logic
 		std::string	collectWord(const Board &tmpBoard, int startY, int startX, t_dir dir) const;
-		int			checkWord(int x, int y, std::string word);
+		t_dir		checkWord(int x, int y, std::string word);
 		bool		checkBoard(const Board &tmpBoard) const;
-		bool		checkFrontiers(int check);
+		t_dir		checkFrontiers(int x, int y, std::string word, t_dir dir);
 		bool		checkGameOver();
 
 		// Getters and setters

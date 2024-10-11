@@ -1,22 +1,25 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
-int Board::checkWord(int x, int y, std::string word)
+// TODO
+// add check for same word played twice at same place
+// and check for same word played twice?
+t_dir Board::checkWord(int x, int y, std::string word)
 {
 	Board tmpBoard = *this;
 
 	bool validRight = false;
 	bool validDown = false;
 
-	if (tmpBoard.playWord(x, y, word, RIGHT, TRY))
+	if (tmpBoard.playWord(x, y, word, RIGHT, PLAY))
 		validRight = tmpBoard.checkBoard(tmpBoard);
-	// std::cout << "DEBUG validRight: " << validRight << std::endl;
+	std::cout << "DEBUG validRight: " << validRight << std::endl;
 
 	tmpBoard = *this;
 
-	if (tmpBoard.playWord(x, y, word, DOWN, TRY))
+	if (tmpBoard.playWord(x, y, word, DOWN, PLAY))
 		validDown = tmpBoard.checkBoard(tmpBoard);
-	// std::cout << "DEBUG validDown: " << validDown << std::endl;
+	std::cout << "DEBUG validDown: " << validDown << std::endl;
 	
 	if (validRight && validDown)
 		return (BOTH);
@@ -49,12 +52,62 @@ std::string	Board::collectWord(const Board &tmpBoard, int startX, int startY, t_
 		return (fullWord);
 }
 
-bool Board::checkFrontiers(int check)
+// TODO check that it works on edges
+t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 {
-	// TODO
-	// Implement this function to check that all the tiles
-	// are connected to existing tile network.
-	return (true);
+	Tile	currentTile;
+	bool 	right = false;
+	bool 	down = false;
+
+	if (_firstTurn)
+		return (BOTH);
+
+	if (dir == RIGHT || dir == BOTH)
+	{
+		for (size_t i = 0; i < word.size(); i++)
+		{
+			currentTile = getTile(x, y);
+			// check for prefix
+			if (i == 0 && x > 0 && getTile(x - 1, y).getLetter() != EMPTY)
+				right = true;
+			// check for suffix
+			else if (i == word.size() - 1 && x < BOARD_SIZE - 1 && getTile(x + 1, y).getLetter() != EMPTY) 
+				right = true;
+			// check for above and below letters
+			else if (i > 0 && i < word.size() - 1 && \
+						(getTile(x - 1, y).getLetter() != EMPTY || getTile(x + 1, y).getLetter() != EMPTY))
+				right = true;
+			x++;
+		}
+		std::cout << "DEBUG right: word is not connected" << std::endl;
+	}
+	else if (dir == DOWN || dir == BOTH)
+	{
+		for (size_t i = 0; i < word.size(); i++)
+		{
+			currentTile = getTile(x, y);
+			// check for prefix
+			if (i == 0 && y > 0 && getTile(x, y - 1).getLetter() != EMPTY)
+				down = true;
+			// check for suffix
+			else if (i == word.size() - 1 && y < BOARD_SIZE - 1 && getTile(x, y + 1).getLetter() != EMPTY) 
+				down = true;
+			// check for left and right letters
+			else if (i > 0 && i < word.size() - 1 && \
+						(getTile(x, y - 1).getLetter() != EMPTY || getTile(x, y + 1).getLetter() != EMPTY))
+				down = true;
+			y++;
+		}
+		std::cout << "DEBUG down: word is not connected" << std::endl;
+	}
+	if (right && down)
+		return (BOTH);
+	else if (right)
+		return (RIGHT);
+	else if (down)
+		return (DOWN);
+	else
+		throw std::logic_error("Error: word must be connected to existing tiles.");
 }
 
 bool Board::checkBoard(const Board &tmpBoard) const
