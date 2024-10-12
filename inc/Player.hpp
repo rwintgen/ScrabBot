@@ -1,5 +1,7 @@
-#include "Board.hpp"
-#include "Tile.hpp"
+#pragma once
+
+# include "Board.hpp"
+# include "Tile.hpp"
 
 class Player
 {
@@ -15,12 +17,12 @@ class Player
 		void	decrementPoints(int n);
 
 		// Getters and setters
-		Tile&	getTiles() const;
-		void	setTiles(char c);
-		Tile&	getTile(int n) const;
-		void	setTile(int n, char c);
+		std::string	getLetters() const;
+		void		setLetters(char c);
+		std::string	getLetter(int n) const;
+		void		setLetter(int n, char c);
 
 	private:
-		Tile			_tiles[7];
+		std::string		_letters;
 		unsigned int	_points;
 };

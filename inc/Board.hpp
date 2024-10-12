@@ -21,6 +21,7 @@
 # define BOARD_SIZE 15
 
 class Tile;
+class Player;
 
 typedef enum e_mode
 {
@@ -88,8 +89,8 @@ class Board
 		std::map<char, std::pair<int, int> >	_letters;
 		std::unordered_set<std::string>			_dict;
 
-		Player	_opponent;
-		Player	_player;
+		Player*	_opponent;
+		Player*	_player;
 
 		bool	_turn;
 		bool	_firstTurn;

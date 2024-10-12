@@ -2,9 +2,10 @@
 #include "Tile.hpp"
 
 // TODO
-// implement player class
 // add points counting system (has to be incremented at each turn)
+// add tile drawing and move checking according to available tiles
 // work on algo and prompt for validation
+// implement UNDO command
 
 int main(void)
 {
@@ -20,7 +21,6 @@ int main(void)
 		{
 			if (currentState.getTurn() == true)
 			{
-				std::cout << "MY TURN" << std::endl << std::endl;
 				tmpBoard = currentState.findBestMove();
 				currentState = tmpBoard;
 			}
