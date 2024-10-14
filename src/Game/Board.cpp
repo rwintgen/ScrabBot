@@ -38,9 +38,9 @@ void Board::opponentPlay(void)
 	// std::cout << "DEBUG x: " << x << std::endl;
 
 	t_dir	checkW = checkWord(x, y, word);
-	std::cout << "DEBUG checkW: " << checkW << std::endl;
+	// std::cout << "DEBUG checkW: " << checkW << std::endl;
 	t_dir	checkF = checkFrontiers(x, y, word, checkW);
-	std::cout << "DEBUG checkF: " << checkF << std::endl;
+	// std::cout << "DEBUG checkF: " << checkF << std::endl;
 
 	t_dir	finalCheck;
 
@@ -48,7 +48,7 @@ void Board::opponentPlay(void)
 		finalCheck = checkW;
 	else if (checkW == BOTH || checkF == BOTH)
 		finalCheck = (checkW < checkF) ? checkW : checkF;
-	std::cout << "DEBUG finalCheck: " << checkF << std::endl;
+	// std::cout << "DEBUG finalCheck: " << checkF << std::endl;
 
 	while (std::cin && finalCheck == BOTH && word.size() > 1)
 	{
@@ -61,11 +61,8 @@ void Board::opponentPlay(void)
 			finalCheck = DOWN;
 	}
 
-	// TODO fix logic here.
-	if (finalCheck == RIGHT)
-		playWord(x, y, word, RIGHT, PLAY);
-	else if (finalCheck == DOWN)
-		playWord(x, y, word, DOWN, PLAY);
+	if (finalCheck == RIGHT || finalCheck == DOWN)
+		playWord(x, y, word, finalCheck, PLAY);
 	else
 		throw std::logic_error("Error: invalid move.");
 }
@@ -97,15 +94,22 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 		if (y == 7 && x == 7)
 			isCenter = true;
 		
-		if (direction == DOWN)
-			x++;
-		else if (direction == RIGHT)
-			y++;
+		switch (direction)
+		{
+			case DOWN:
+				x++;
+				break ;
+			case RIGHT:
+				y++;
+				break ;
+			default:
+				throw std::logic_error("Error: invalid direction.");
+		}
 	}
 
 	if ((_firstTurn && !isCenter) || placedATile == false)
 		return (false);
-	
+
 	if (mode == PLAY)
 		_firstTurn = false;
 
