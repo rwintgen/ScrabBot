@@ -2,6 +2,7 @@
 #include "Tile.hpp"
 
 // TODO
+// accept coordinates in reveresed order (ex: 1A instead of A1)
 // add points counting system (has to be incremented at each turn)
 // add tile drawing and move checking according to available tiles
 // work on algo and prompt for validation
