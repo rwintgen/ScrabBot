@@ -65,6 +65,10 @@ void Board::opponentPlay(void)
 		playWord(x, y, word, finalCheck, PLAY);
 	else
 		throw std::logic_error("Error: invalid move.");
+
+	int	points = countPoints(x, y, word, finalCheck);
+
+	_opponent->incrementPoints(points);
 }
 
 bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mode)
@@ -94,17 +98,12 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 		if (y == 7 && x == 7)
 			isCenter = true;
 		
-		switch (direction)
-		{
-			case DOWN:
-				x++;
-				break ;
-			case RIGHT:
-				y++;
-				break ;
-			default:
-				throw std::logic_error("Error: invalid direction.");
-		}
+		if (direction == DOWN)
+			x++;
+		else if (direction == RIGHT)
+			y++;
+		else
+			throw std::logic_error("Error: invalid direction.");
 	}
 
 	if ((_firstTurn && !isCenter) || placedATile == false)

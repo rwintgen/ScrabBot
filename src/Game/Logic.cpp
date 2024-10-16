@@ -9,13 +9,13 @@ t_dir Board::checkWord(int x, int y, std::string word)
 
 	if (tmpBoard.playWord(x, y, word, RIGHT, PLAY))
 		validRight = tmpBoard.checkBoard(tmpBoard);
-	std::cout << "DEBUG validRight: " << validRight << std::endl;
+	// std::cout << "DEBUG validRight: " << validRight << std::endl;
 
 	tmpBoard = *this;
 
 	if (tmpBoard.playWord(x, y, word, DOWN, PLAY))
 		validDown = tmpBoard.checkBoard(tmpBoard);
-	std::cout << "DEBUG validDown: " << validDown << std::endl;
+	// std::cout << "DEBUG validDown: " << validDown << std::endl;
 	
 	if (validRight && validDown)
 		return (BOTH);
@@ -48,6 +48,51 @@ std::string	Board::collectWord(const Board &tmpBoard, int startX, int startY, t_
 		return (fullWord);
 }
 
+int Board::countPoints(int x, int y, std::string word, t_dir dir)
+{
+	unsigned int	points = 0;
+	unsigned int	multiplier = 1;
+
+	for (size_t i = 0; i < word.size(); i++)
+	{
+		Tile currentTile = getTile(x, y);
+
+		switch (currentTile.getType())
+		{
+			case STANDARD:
+				points += getPoints(currentTile.getLetter());
+				break ;
+			case WORD_DOUBLE:
+				points += getPoints(currentTile.getLetter());
+				multiplier = 2;
+				break ;
+			case WORD_TRIPLE:
+				points += getPoints(currentTile.getLetter());
+				multiplier = 3;
+				break ;
+			case LETTER_DOUBLE:
+				points += getPoints(currentTile.getLetter()) * 2;
+				break ;
+			case LETTER_TRIPLE:
+				points += getPoints(currentTile.getLetter()) * 3;
+				break ;
+			default:
+				throw std::logic_error("Error: invalid tile type.");
+		}
+
+		if (dir == DOWN)
+			x++;
+		else if (dir == RIGHT)
+			y++;
+		else
+			throw std::logic_error("Error: invalid direction.");
+	}
+
+	std::cout << "DEBUG points: " << points << std::endl;
+
+	return (points * multiplier);
+}
+
 // TODO check that it works on edges
 t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 {
@@ -66,34 +111,16 @@ t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 		{
 			currentTile = getTile(currentX, currentY);
 
-			// std::cout << "DEBUG RIGHT current letter: " << word[i] << std::endl;
-
 			if (i >= 0 && i <= word.size() - 1 && \
 				(getTile(currentX - 1, currentY).getLetter() != EMPTY || \
 				getTile(currentX + 1, currentY).getLetter() != EMPTY))
-			// {
 				right = true;
-			// 	std::cout << "DEBUG condition 1" << std::endl;
-			// 	std::cout << "DEBUG tile above: " << getTile(currentX - 1, currentY).getLetter() << std::endl;
-			// 	std::cout << "DEBUG tile below: " << getTile(currentX + 1, currentY).getLetter() << std::endl;
-			// }
-
-			if (i == 0 && currentX > 0 && getTile(currentX, currentY - 1).getLetter() != EMPTY)
-			// {
+			else if (i == 0 && currentX > 0 && getTile(currentX, currentY - 1).getLetter() != EMPTY)
 				right = true;
-			// 	std::cout << "DEBUG condition 2" << std::endl;
-			// 	std::cout << "DEBUG prefix: " << getTile(currentX, currentY - 1).getLetter() << std::endl;
-			// }
-			if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX, currentY + 1).getLetter() != EMPTY) 
-			// {
+			else if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX, currentY + 1).getLetter() != EMPTY) 
 				right = true;
-			// 	std::cout << "DEBUG condition 3" << std::endl;
-			// 	std::cout << "DEBUG suffix: " << getTile(currentX, currentY + 1).getLetter() << std::endl;
-			// }
 			currentY++;
 		}
-		// if (right == false)
-		// 	std::cout << "DEBUG right: word is not connected" << std::endl;
 	}
 
 	currentX = x;
@@ -105,35 +132,19 @@ t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 		{
 			currentTile = getTile(currentX, currentY);
 
-			// std::cout << "DEBUG DOWN current letter: " << word[i] << std::endl;
-
 			if (i >= 0 && i <= word.size() - 1 && \
 				(getTile(currentX, currentY - 1).getLetter() != EMPTY || \
 				getTile(currentX, currentY + 1).getLetter() != EMPTY))
-			// {
 				down = true;
-			// 	std::cout << "DEBUG condition 4" << std::endl;
-			// 	std::cout << "DEBUG tile left: " << getTile(currentX, currentY - 1).getLetter() << std::endl;
-			// 	std::cout << "DEBUG tile right: " << getTile(currentX, currentY + 1).getLetter() << std::endl;
-			// }
-			if (i == 0 && currentY > 0 && getTile(currentX - 1, currentY).getLetter() != EMPTY)
-			// {
+
+			else if (i == 0 && currentY > 0 && getTile(currentX - 1, currentY).getLetter() != EMPTY)
 				down = true;
-			// 	std::cout << "DEBUG prefix: " << getTile(currentX - 1, currentY).getLetter() << std::endl;
-			// }
-			if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX + 1, currentY).getLetter() != EMPTY) 
-			// {
+			else if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX + 1, currentY).getLetter() != EMPTY) 
 				down = true;
-			// 	std::cout << "DEBUG suffix: " << getTile(currentX + 1, currentY).getLetter() << std::endl;
-			// }
 			currentX++;
 		}
-		// if (down == false)
-		// 	std::cout << "DEBUG down: word is not connected" << std::endl;
 	}
 
-	// std::cout << "DEBUG right: " << right << std::endl;
-	// std::cout << "DEBUG down: " << down << std::endl;
 	if (right && down)
 		return (BOTH);
 	else if (right)
@@ -179,7 +190,7 @@ bool Board::checkBoard(const Board &tmpBoard) const
 bool Board::checkGameOver(void)
 {
 	// TODO
-	// Implement thif function to check 
+	// Implement this function to check 
 	// if the game is over.
 	return (false);
 }

@@ -36,3 +36,11 @@ bool Board::getTurn(void) const
 {
 	return (_turn);
 }
+
+int Board::getPoints(char c) const
+{
+	auto it = _letters.find(c);
+	if (it != _letters.end())
+		return (it->second.second);
+	throw std::invalid_argument("Error: invalid letter.");
+}
