@@ -45,7 +45,7 @@ t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 		{
 			currentTile = getTile(currentX, currentY);
 
-			if (i >= 0 && i <= word.size() - 1 && \
+			if (/*i >= 0 && */i <= word.size() - 1 && \
 				(getTile(currentX - 1, currentY).getLetter() != EMPTY || \
 				getTile(currentX + 1, currentY).getLetter() != EMPTY))
 				right = true;
@@ -66,7 +66,7 @@ t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 		{
 			currentTile = getTile(currentX, currentY);
 
-			if (i >= 0 && i <= word.size() - 1 && \
+			if (/*i >= 0 && */i <= word.size() - 1 && \
 				(getTile(currentX, currentY - 1).getLetter() != EMPTY || \
 				getTile(currentX, currentY + 1).getLetter() != EMPTY))
 				down = true;

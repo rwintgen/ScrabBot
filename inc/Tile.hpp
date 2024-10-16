@@ -24,6 +24,7 @@ class Tile
 	public:
 		// Constructors and destructors
 		Tile();
+		Tile(Tile const &src);
 		~Tile();
 
 		// Copy assignment operator

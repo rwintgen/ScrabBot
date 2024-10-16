@@ -35,7 +35,6 @@ Board::Board() : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 	default:
 		break ;
 	}
-
 }
 
 Board::Board(const Board &src)

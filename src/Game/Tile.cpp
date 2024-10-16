@@ -8,6 +8,11 @@ Tile::~Tile()
 {
 }
 
+Tile::Tile(Tile const &src)
+{
+	*this = src;
+}
+
 Tile& Tile::operator=(const Tile &src)
 {
 	_letter = src._letter;
