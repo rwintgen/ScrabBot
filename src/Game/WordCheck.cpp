@@ -27,27 +27,6 @@ t_dir Board::checkWord(int x, int y, std::string word)
 		throw std::invalid_argument("Error: invalid word in this context.");
 }
 
-std::string	Board::collectWord(const Board &tmpBoard, int x, int y, t_dir dir) const
-{
-		std::string fullWord;
-		int currentY = y;
-		int currentX = x;
-
-		while (currentY > 0 && dir == DOWN && tmpBoard._board[currentY - 1][currentX].getLetter() != EMPTY)
-			currentY--;
-		while (currentX > 0 && dir == RIGHT && tmpBoard._board[currentY][currentX - 1].getLetter() != EMPTY)
-			currentX--;
-
-		while (currentY < BOARD_SIZE && dir == DOWN && tmpBoard._board[currentY][currentX].getLetter() != EMPTY)
-			fullWord += tmpBoard._board[currentY++][currentX].getLetter();
-		while (currentX < BOARD_SIZE && dir == RIGHT && tmpBoard._board[currentY][currentX].getLetter() != EMPTY)
-			fullWord += tmpBoard._board[currentY][currentX++].getLetter();
-
-		// if (fullWord.size() > 1)
-			// std::cout << "DEBUG fullWord: " << fullWord << std::endl;
-		return (fullWord);
-}
-
 // TODO check that it works on edges
 t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 {

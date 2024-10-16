@@ -8,6 +8,29 @@
 // implement UNDO command
 // UI/UX improvements
 
+// BUG
+// fix tileCompletesWord() function
+/*
+   A B C D E F G H I J K L M N O 
+ 1 W . . L . . . W . . . L . . W 
+ 2 . W . . . L . . . L . . . W . 
+ 3 . . W . . . L . L . . . W . . 
+ 4 L . . W . . . L . . . W . . L 
+ 5 . . . . W . . T . . W . . . . 
+ 6 . L . . . L . E . L . . . L . 
+ 7 . . L . . . L S L . . . L . . 
+ 8 W . . L . . . T . . . L . . W 
+ 9 . . L . . . L . L . . . L . . 
+10 . L . . . L . . . L . . . L . 
+11 . . . . W . . . . . W . . . . 
+12 L . . W . . . L . . . W . . L 
+13 . . W . . . L . L . . . W . . 
+14 . W . . . L . . . L . . . W . 
+15 W . . L . . . W . . . L . . W 
+
+Enter opponent's move: g9 ashamed
+*/
+
 int main(void)
 {
 	try

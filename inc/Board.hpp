@@ -54,9 +54,11 @@ class Board
 		Board&	operator=(const Board &src);
 
 		// Utils
-		void	printBoard();
-		void	decrementBag(char c);
-		void	incrementBag(char c);
+		void		printBoard();
+		void		decrementBag(char c);
+		void		incrementBag(char c);
+		std::string	collectWord(const Board &tmpBoard, int startY, int startX, t_dir dir) const;
+		bool		tileCompletesWord(int x, int y, t_dir dir) const;
 
 		// Init
 		void	initBoard();
@@ -69,13 +71,12 @@ class Board
 		bool		playWord(int x, int y, std::string word, t_dir direction, t_mode mode);
 
 		// Game logic
-		std::string	collectWord(const Board &tmpBoard, int startY, int startX, t_dir dir) const;
-		int			countPoints(int x, int y, std::string word, t_dir dir);
-		int			countPerpendicularPoints(int x, int y, t_dir perpDir);
-		t_dir		checkWord(int x, int y, std::string word);
-		bool		checkBoard(const Board &tmpBoard) const;
-		t_dir		checkFrontiers(int x, int y, std::string word, t_dir dir);
-		bool		checkGameOver();
+		int		countPoints(int x, int y, std::string word, t_dir dir);
+		int		countPerpendicularPoints(int x, int y, t_dir perpDir);
+		t_dir	checkWord(int x, int y, std::string word);
+		bool	checkBoard(const Board &tmpBoard) const;
+		t_dir	checkFrontiers(int x, int y, std::string word, t_dir dir);
+		bool	checkGameOver();
 
 		// Getters and setters
 		void		setTile(int x, int y, char c);

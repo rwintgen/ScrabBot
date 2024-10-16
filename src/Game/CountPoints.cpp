@@ -63,18 +63,24 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 		}
 		_board[x][y].setType(STANDARD);
 
+		std::cout << "DEBUG letter: " << currentTile.getLetter() << " completesword: " << currentTile.getCompletesWord() << std::endl;
+
 		if (dir == DOWN)
 		{
-			points += countPerpendicularPoints(x, y, RIGHT);
+			if (currentTile.getCompletesWord())
+				points += countPerpendicularPoints(x, y, RIGHT);
 			x++;
 		}
 		else if (dir == RIGHT)
 		{
-			points += countPerpendicularPoints(x, y, DOWN);
+			if (currentTile.getCompletesWord())
+				points += countPerpendicularPoints(x, y, DOWN);
 			y++;
 		}
 		else
 			throw std::logic_error("Error: invalid direction.");
+
+		currentTile.setCompletesWord(false);
 	}
 
 	std::cout << "DEBUG points: " << points << std::endl;

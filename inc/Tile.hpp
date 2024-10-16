@@ -34,8 +34,11 @@ class Tile
 		char	getLetter() const;
 		void	setType(t_type type);
 		t_type	getType() const;
+		void	setCompletesWord(bool completesWord);
+		bool	getCompletesWord() const;
 
 	private:
 		char	_letter;
 		t_type	_type;
+		bool	_completesWord;
 };
