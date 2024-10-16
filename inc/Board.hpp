@@ -55,12 +55,14 @@ class Board
 
 		// Utils
 		void	printBoard();
+		void	decrementBag(char c);
+		void	incrementBag(char c);
+
+		// Init
 		void	initBoard();
 		void	initLanguage();
 		void	initTurn();
 		void	initDict();
-		void	decrementBag(char c);
-		void	incrementBag(char c);
 
 		// Game manipulation
 		void		opponentPlay();
@@ -69,6 +71,7 @@ class Board
 		// Game logic
 		std::string	collectWord(const Board &tmpBoard, int startY, int startX, t_dir dir) const;
 		int			countPoints(int x, int y, std::string word, t_dir dir);
+		int			countPerpendicularPoints(int x, int y, t_dir perpDir);
 		t_dir		checkWord(int x, int y, std::string word);
 		bool		checkBoard(const Board &tmpBoard) const;
 		t_dir		checkFrontiers(int x, int y, std::string word, t_dir dir);

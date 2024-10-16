@@ -13,7 +13,7 @@ void Board::setTile(int x, int y, char c)
 			if (_board[x][y].getLetter() == EMPTY && it->second.first > 0)
 				decrementBag(c);
 			_board[x][y].setLetter(c);
-		}
+		}	
 	}
 	else
 		throw std::out_of_range("Error: invalid board coordinates (" + std::to_string(x) + ", " + std::to_string(y) + ").");

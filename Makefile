@@ -2,7 +2,7 @@
 CC = g++
 
 # Compiler flags
-CFLAGS = -Wall -g -Iinc -std=c++11
+CFLAGS = -Wall -Wextra -Werror -g -Iinc -std=c++11
 
 # Source and object directories
 SRC_DIR = src
@@ -12,11 +12,13 @@ OBJ_DIR = obj
 SRCS = main.cpp \
 	   $(SRC_DIR)/Algo/FindBestMove.cpp \
 	   $(SRC_DIR)/Game/Board.cpp \
+	   $(SRC_DIR)/Game/CountPoints.cpp \
 	   $(SRC_DIR)/Game/GettersSetters.cpp \
-	   $(SRC_DIR)/Game/Logic.cpp \
+	   $(SRC_DIR)/Game/Init.cpp \
 	   $(SRC_DIR)/Game/Player.cpp \
-	   $(SRC_DIR)/Game/Utils.cpp \
 	   $(SRC_DIR)/Game/Tile.cpp \
+	   $(SRC_DIR)/Game/Utils.cpp \
+	   $(SRC_DIR)/Game/WordCheck.cpp \
 
 # Object files
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))

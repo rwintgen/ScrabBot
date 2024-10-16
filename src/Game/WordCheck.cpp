@@ -27,11 +27,11 @@ t_dir Board::checkWord(int x, int y, std::string word)
 		throw std::invalid_argument("Error: invalid word in this context.");
 }
 
-std::string	Board::collectWord(const Board &tmpBoard, int startX, int startY, t_dir dir) const
+std::string	Board::collectWord(const Board &tmpBoard, int x, int y, t_dir dir) const
 {
 		std::string fullWord;
-		int currentY = startY;
-		int currentX = startX;
+		int currentY = y;
+		int currentX = x;
 
 		while (currentY > 0 && dir == DOWN && tmpBoard._board[currentY - 1][currentX].getLetter() != EMPTY)
 			currentY--;
@@ -46,51 +46,6 @@ std::string	Board::collectWord(const Board &tmpBoard, int startX, int startY, t_
 		// if (fullWord.size() > 1)
 			// std::cout << "DEBUG fullWord: " << fullWord << std::endl;
 		return (fullWord);
-}
-
-int Board::countPoints(int x, int y, std::string word, t_dir dir)
-{
-	unsigned int	points = 0;
-	unsigned int	multiplier = 1;
-
-	for (size_t i = 0; i < word.size(); i++)
-	{
-		Tile currentTile = getTile(x, y);
-
-		switch (currentTile.getType())
-		{
-			case STANDARD:
-				points += getPoints(currentTile.getLetter());
-				break ;
-			case WORD_DOUBLE:
-				points += getPoints(currentTile.getLetter());
-				multiplier = 2;
-				break ;
-			case WORD_TRIPLE:
-				points += getPoints(currentTile.getLetter());
-				multiplier = 3;
-				break ;
-			case LETTER_DOUBLE:
-				points += getPoints(currentTile.getLetter()) * 2;
-				break ;
-			case LETTER_TRIPLE:
-				points += getPoints(currentTile.getLetter()) * 3;
-				break ;
-			default:
-				throw std::logic_error("Error: invalid tile type.");
-		}
-
-		if (dir == DOWN)
-			x++;
-		else if (dir == RIGHT)
-			y++;
-		else
-			throw std::logic_error("Error: invalid direction.");
-	}
-
-	std::cout << "DEBUG points: " << points << std::endl;
-
-	return (points * multiplier);
 }
 
 // TODO check that it works on edges
