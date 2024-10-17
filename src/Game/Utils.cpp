@@ -22,19 +22,19 @@ void Board::printBoard()
 				{
 					case WORD_DOUBLE:
 						std::cout << PINK << "W" << RESET;
-						break;
+						break ;
 					case WORD_TRIPLE:
 						std::cout << RED << "W" << RESET;
-						break;
+						break ;
 					case LETTER_DOUBLE:
 						std::cout << LIGHT_BLUE << "L" << RESET;
-						break;
+						break ;
 					case LETTER_TRIPLE:
 						std::cout << DARK_BLUE << "L" << RESET;
-						break;
+						break ;
 					default:
 						std::cout << ".";
-						break;
+						break ;
 				}
 			}
 			std::cout << " ";

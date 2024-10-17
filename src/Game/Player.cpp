@@ -5,6 +5,12 @@ Player::Player() : _letters(""), _points(0)
 {
 }
 
+Player::Player(const Player *src)
+{
+	if (this != src)
+		*this = *src;
+}
+
 Player::~Player()
 {
 }

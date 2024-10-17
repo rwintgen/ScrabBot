@@ -8,6 +8,7 @@ class Player
 	public:
 		// Constructors and Destructors
 		Player();
+		Player(const Player *src);
 		~Player();
 
 		Player&	operator=(const Player& src);

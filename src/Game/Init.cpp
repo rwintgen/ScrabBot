@@ -36,6 +36,9 @@ Board::Board() : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 	default:
 		break ;
 	}
+
+	_player = new(Player);
+	_opponent = new(Player);
 }
 
 Board::Board(const Board &src)
@@ -46,6 +49,8 @@ Board::Board(const Board &src)
 
 Board::~Board()
 {
+	delete _opponent;
+	delete _player;
 }
 
 Board& Board::operator=(const Board &src)
@@ -55,8 +60,8 @@ Board& Board::operator=(const Board &src)
 	_dict = src._dict;
 
 	// TODO make a deep copy of the players
-	// _opponent = src.opponent;
-	// _player = src._player;
+	_opponent = new Player(src._opponent);
+	_player = new Player(src._player);
 
 	_turn = src._turn;
 	_firstTurn = src._firstTurn;
@@ -97,16 +102,16 @@ void Board::initDict(void)
 	{
 		case ENGLISH:
 			file.open("dicts/EN_dict.txt");
-			break;
+			break ;
 		case FRENCH:
 			file.open("dicts/FR_dict.txt");
-			break;
+			break ;
 		// case SPANISH:
 		// 	file.open("dicts/ES_dict.txt");
-		// 	break;
+		// 	break ;
 		default:
 			throw std::logic_error("Error: invalid language.");
-			break;
+			break ;
 	}
 
 	if (file.is_open())
