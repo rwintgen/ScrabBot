@@ -1,6 +1,7 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
+// TODO init Player objects
 Board::Board() : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 {
 	initLanguage();
@@ -52,8 +53,14 @@ Board& Board::operator=(const Board &src)
 	_board = src._board;
 	_letters = src._letters;
 	_dict = src._dict;
+
+	// TODO make a deep copy of the players
+	// _opponent = src.opponent;
+	// _player = src._player;
+
 	_turn = src._turn;
 	_firstTurn = src._firstTurn;
+
 	return (*this);
 }
 
@@ -121,6 +128,7 @@ void Board::initBoard()
 		{
 			_board[i][j].setLetter(EMPTY);
 			_board[i][j].setType(STANDARD);
+			_board[i][j].setCompletesWord(false);
 		}
 	}
 

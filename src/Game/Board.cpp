@@ -66,9 +66,9 @@ void Board::opponentPlay(void)
 	else
 		throw std::logic_error("Error: invalid move.");
 
-	int	points = countPoints(x, y, word, finalCheck);
-
-	_opponent->incrementPoints(points);
+	// BUGS valgrind / segfault here
+	// int	points = countPoints(x, y, word, finalCheck);
+	// _opponent->incrementPoints(points);
 }
 
 bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mode)

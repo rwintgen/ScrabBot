@@ -63,7 +63,7 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 		}
 		_board[x][y].setType(STANDARD);
 
-		std::cout << "DEBUG letter: " << currentTile.getLetter() << " completesword: " << currentTile.getCompletesWord() << std::endl;
+		std::cout << "DEBUG completesword: " << currentTile.getCompletesWord() << std::endl;
 
 		if (dir == DOWN)
 		{

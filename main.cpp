@@ -10,6 +10,7 @@
 
 // BUG
 // fix tileCompletesWord() function
+// fix player objects not being copied to currentState
 /*
    A B C D E F G H I J K L M N O 
  1 W . . L . . . W . . . L . . W 
