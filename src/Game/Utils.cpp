@@ -81,24 +81,26 @@ std::string	Board::collectWord(const Board &tmpBoard, int x, int y, t_dir dir) c
 
 bool Board::tileCompletesWord(int x, int y, t_dir dir) const
 {
-	std::cout << "DEBUG direction" << dir << std::endl;
-
 	if (dir == DOWN)
 	{
-		if ((x > 0 && getTile(x - 1, y).getLetter() != EMPTY) && \
-			(x >= BOARD_SIZE - 1 || getTile(x + 1, y).getLetter() == EMPTY))
+		// Check left
+		if ((y > 0 && getTile(x, y - 1).getLetter() != EMPTY) && 
+			(y == BOARD_SIZE - 1 || getTile(x, y + 1).getLetter() == EMPTY))
 			return (true);
-		if ((x < BOARD_SIZE - 1 && getTile(x + 1, y).getLetter() != EMPTY) && \
-			(x <= 0 || getTile(x - 1, y).getLetter() == EMPTY))
+		// Check right
+		if ((y < BOARD_SIZE - 1 && getTile(x, y + 1).getLetter() != EMPTY) && 
+			(y == 0 || getTile(x, y - 1).getLetter() == EMPTY))
 			return (true);
 	}
 	else if (dir == RIGHT)
 	{
-		if ((y > 0 && getTile(x, y - 1).getLetter() != EMPTY) && \
-			(y >= BOARD_SIZE - 1 || getTile(x, y + 1).getLetter() == EMPTY))
+		// Check above
+		if ((x > 0 && getTile(x - 1, y).getLetter() != EMPTY) && 
+			(x == BOARD_SIZE - 1 || getTile(x + 1, y).getLetter() == EMPTY))
 			return (true);
-		if ((y < BOARD_SIZE - 1 && getTile(x, y + 1).getLetter() != EMPTY) && \
-			(y <= 0 || getTile(x, y - 1).getLetter() == EMPTY))
+		// Check below
+		if ((x < BOARD_SIZE - 1 && getTile(x + 1, y).getLetter() != EMPTY) && 
+			(x == 0 || getTile(x - 1, y).getLetter() == EMPTY))
 			return (true);
 	}
 	return (false);

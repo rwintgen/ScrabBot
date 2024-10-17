@@ -9,7 +9,6 @@
 // UI/UX improvements
 
 // BUG
-// fix tileCompletesWord() function
 // fix player objects not being freed (valgrind) ?
 
 int main(void)
