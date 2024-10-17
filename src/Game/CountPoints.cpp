@@ -37,7 +37,8 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 		Tile currentTile = getTile(x, y);
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
-					" type: " << currentTile.getType() << std::endl;
+					" type: " << currentTile.getType() << std::endl << \
+					" completes a word: " << currentTile.getCompletesWord() << std::endl;
 
 		switch (currentTile.getType())
 		{
