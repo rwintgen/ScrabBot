@@ -60,11 +60,6 @@ class Board
 		std::string	collectWord(const Board &tmpBoard, int startY, int startX, t_dir dir) const;
 		bool		tileCompletesWord(int x, int y, t_dir dir) const;
 
-		// Init
-		void	initBoard();
-		void	initLanguage();
-		void	initTurn();
-		void	initDict();
 
 		// Game manipulation
 		void		opponentPlay();
@@ -102,4 +97,10 @@ class Board
 		bool	_firstTurn;
 
 		int	_gameLanguage;
+
+		// Init
+		void	initBoard();
+		void	initLanguage();
+		void	initTurn();
+		void	initDict();
 };

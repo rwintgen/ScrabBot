@@ -1,7 +1,6 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
-// TODO init Player objects
 Board::Board() : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 {
 	initLanguage();
@@ -37,14 +36,21 @@ Board::Board() : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 		break ;
 	}
 
-	_player = new(Player);
-	_opponent = new(Player);
+	_player = new Player();
+	_opponent = new Player();
 }
 
-Board::Board(const Board &src)
+Board::Board(const Board &src) : _board(BOARD_SIZE, std::vector<Tile>(BOARD_SIZE))
 {
-	if (this != &src)
-		*this = src;
+	_board = src._board;
+	_letters = src._letters;
+	_dict = src._dict;
+
+	_opponent = new Player(*src._opponent);
+	_player = new Player(*src._player);
+
+	_turn = src._turn;
+	_firstTurn = src._firstTurn;
 }
 
 Board::~Board()
@@ -55,16 +61,21 @@ Board::~Board()
 
 Board& Board::operator=(const Board &src)
 {
-	_board = src._board;
-	_letters = src._letters;
-	_dict = src._dict;
+	if (this != &src)
+	{
+		delete _opponent;
+		delete _player;
 
-	// TODO make a deep copy of the players
-	_opponent = new Player(src._opponent);
-	_player = new Player(src._player);
+		_board = src._board;
+		_letters = src._letters;
+		_dict = src._dict;
 
-	_turn = src._turn;
-	_firstTurn = src._firstTurn;
+		_opponent = new Player(*src._opponent);
+		_player = new Player(*src._player);
+
+		_turn = src._turn;
+		_firstTurn = src._firstTurn;
+	}
 
 	return (*this);
 }
