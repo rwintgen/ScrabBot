@@ -28,10 +28,6 @@ static unsigned int	getLetterMultiplier(const Tile &currentTile)
 		}
 }
 
-// TODO BUG
-// Does not always count if tile starts beginning of new word.
-	// ex: h4 inane; h7 ninja
-	// h6 at returns 3 (instead 4); i6 ti returns 4 (correct)
 int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 {
 	unsigned int	points = 0;
@@ -51,12 +47,12 @@ int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 		points += getPoints(currentTile.getLetter()) * getLetterMultiplier(currentTile);
 		multiplier = (getWordMultiplier(currentTile) > multiplier) ? getWordMultiplier(currentTile) : multiplier;
 
-		// /*
+		/*
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
 					" type: " << currentTile.getType()<< \
 					" completes a word: " << currentTile.getCompletesWord() << std::endl;
-		// */
+		*/
 
 		if (perpDir == DOWN)
 			startX++;
@@ -76,12 +72,12 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 	{
 		Tile currentTile = getTile(x, y);
 
-		///*
+		/*
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
 					" type: " << currentTile.getType()<< \
 					" completes a word: " << currentTile.getCompletesWord() << std::endl;
-		//*/
+		*/
 
 		points += getPoints(currentTile.getLetter()) * getLetterMultiplier(currentTile);
 		multiplier = (getWordMultiplier(currentTile) > multiplier) ? \

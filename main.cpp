@@ -2,15 +2,13 @@
 #include "Tile.hpp"
 
 // TODO
-// add points counting system (has to be incremented at each turn)
 // add tile drawing and move checking according to available tiles
 // work on algo and prompt for validation
 // implement UNDO command
 // UI/UX improvements
 
 // BUG
-// fix player objects not being freed (valgrind) ?
-
+// cannot just put an 's' at end of word
 int main(void)
 {
 	try

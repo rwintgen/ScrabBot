@@ -28,6 +28,7 @@ t_dir Board::checkWord(int x, int y, std::string word)
 }
 
 // TODO check that it works on edges
+// edit: it does not.
 t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 {
 	Tile	currentTile;
