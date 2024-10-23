@@ -17,6 +17,7 @@ Tile& Tile::operator=(const Tile &src)
 {
 	_letter = src._letter;
 	_type = src._type;
+	_completesWord = src._completesWord;
 	return (*this);
 }
 

@@ -1,6 +1,7 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
+// TODO works only if firt letter of word completes another word
 int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 {
 	unsigned int	points = 0;
@@ -35,10 +36,14 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 	for (size_t i = 0; i < word.size(); i++)
 	{
 		Tile currentTile = getTile(x, y);
+		std::cout << "DEBUG board:       " << _board[x][y].getLetter() << \
+					" worth: " << getPoints(_board[x][y].getLetter()) << \
+					" type: " << _board[x][y].getType() << \
+					" completes a word: " << _board[x][y].getCompletesWord() << std::endl;
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
-					" type: " << currentTile.getType() << std::endl << \
-					" completes a word: " << currentTile.getCompletesWord() << std::endl;
+					" type: " << currentTile.getType()<< \
+					" completes a word: " << currentTile.getCompletesWord() << std::endl << std::endl;
 
 		switch (currentTile.getType())
 		{

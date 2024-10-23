@@ -66,14 +66,13 @@ void Board::opponentPlay(void)
 	else
 		throw std::logic_error("Error: invalid move.");
 
-	// BUGS valgrind / segfault here
 	int	points = countPoints(x, y, word, finalCheck);
 	_opponent->incrementPoints(points);
 }
 
 bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mode)
 {
-	Tile	tmpTile;
+	Tile	currentTile;
 	bool	isCenter = false;
 	bool	placedATile = false;
 
@@ -82,19 +81,18 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 		if (x >= BOARD_SIZE || y >= BOARD_SIZE)
 			return (false);
 		
-		tmpTile = getTile(x, y);
-		// std::cout << "DEBUG word[i]: " << word[i] << std::endl;
-		// std::cout << "DEBUG tile: " << tmpTile.getLetter() << std::endl;
-		if (tmpTile.getLetter() != EMPTY && tmpTile.getLetter() != word[i])
+		currentTile = getTile(x, y);
+
+		if (currentTile.getLetter() != EMPTY && currentTile.getLetter() != word[i])
 			return (false);
 
 		if (mode == PLAY)
 		{
 			setTile(x, y, word[i]);
-			if (placedATile == false && tmpTile.getLetter() != word[i])
+			if (placedATile == false && currentTile.getLetter() != word[i])
 				placedATile = true;
 			if (placedATile && tileCompletesWord(x, y, direction))
-				tmpTile.setCompletesWord(true);
+				_board[x][y].setCompletesWord(true);
 		}
 
 		if (y == 7 && x == 7)

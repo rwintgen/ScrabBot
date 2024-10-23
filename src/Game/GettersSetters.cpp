@@ -1,8 +1,6 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
-// TODO
-// add check for playing when no tile of letter is left
 void Board::setTile(int x, int y, char c)
 {
 	if (y >= 0 && y < BOARD_SIZE && x >= 0 && x < BOARD_SIZE)
@@ -19,6 +17,7 @@ void Board::setTile(int x, int y, char c)
 		throw std::out_of_range("Error: invalid board coordinates (" + std::to_string(x) + ", " + std::to_string(y) + ").");
 }
 
+// TODO getTile does not return completesWord !!!
 const Tile& Board::getTile(int x, int y) const
 {
 	if (y >= 0 && y < BOARD_SIZE && x >= 0 && x < BOARD_SIZE)
