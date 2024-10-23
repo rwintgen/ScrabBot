@@ -91,7 +91,7 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 			setTile(x, y, word[i]);
 			if (placedATile == false && currentTile.getLetter() != word[i])
 				placedATile = true;
-			if (placedATile && tileCompletesWord(x, y, direction))
+			if (/*placedATile && */currentTile.getLetter() == EMPTY && tileCompletesWord(x, y, direction))
 				_board[x][y].setCompletesWord(true);
 		}
 

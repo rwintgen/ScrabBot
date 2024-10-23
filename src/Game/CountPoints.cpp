@@ -1,7 +1,8 @@
 #include "Board.hpp"
 #include "Tile.hpp"
 
-// TODO works only if firt letter of word completes another word
+// TODO does not count the bonus letter tiles.
+// check if it does bonus word tiles
 int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 {
 	unsigned int	points = 0;
@@ -13,11 +14,16 @@ int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 	while (startY > 0 && perpDir == RIGHT && getTile(x, startY - 1).getLetter() != EMPTY)
 		startY--;
 
-	while ((perpDir == DOWN && startX < BOARD_SIZE && getTile(startX, y).getLetter() != EMPTY && startX != x ) ||
-		   (perpDir == RIGHT && startY < BOARD_SIZE && getTile(x, startY).getLetter() != EMPTY && startY != y))
+	while ((perpDir == DOWN && startX < BOARD_SIZE && getTile(startX, y).getLetter() != EMPTY && startX != x + 1 ) ||
+		   (perpDir == RIGHT && startY < BOARD_SIZE && getTile(x, startY).getLetter() != EMPTY && startY != y + 1))
 	{
 		Tile currentTile = (perpDir == DOWN) ? getTile(startX, y) : getTile(x, startY);
 		points += getPoints(currentTile.getLetter());
+
+		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
+					" worth: " << getPoints(currentTile.getLetter()) << \
+					" type: " << currentTile.getType()<< \
+					" completes a word: " << currentTile.getCompletesWord() << std::endl;
 
 		if (perpDir == DOWN)
 			startX++;
@@ -28,6 +34,10 @@ int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 	return (points);
 }
 
+// TODO countPoints fixes:
+// if letter completes a word, needs to be counted twice 
+	// eg: h6 tome; h10 sad = 15 points
+// if
 int Board::countPoints(int x, int y, std::string word, t_dir dir)
 {
 	unsigned int	points = 0;
@@ -36,14 +46,10 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 	for (size_t i = 0; i < word.size(); i++)
 	{
 		Tile currentTile = getTile(x, y);
-		std::cout << "DEBUG board:       " << _board[x][y].getLetter() << \
-					" worth: " << getPoints(_board[x][y].getLetter()) << \
-					" type: " << _board[x][y].getType() << \
-					" completes a word: " << _board[x][y].getCompletesWord() << std::endl;
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
 					" type: " << currentTile.getType()<< \
-					" completes a word: " << currentTile.getCompletesWord() << std::endl << std::endl;
+					" completes a word: " << currentTile.getCompletesWord() << std::endl;
 
 		switch (currentTile.getType())
 		{
@@ -67,9 +73,6 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 			default:
 				throw std::logic_error("Error: invalid tile type.");
 		}
-		_board[x][y].setType(STANDARD);
-
-		std::cout << "DEBUG completesword: " << currentTile.getCompletesWord() << std::endl;
 
 		if (dir == DOWN)
 		{
@@ -88,6 +91,7 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 
 		currentTile.setCompletesWord(false);
 	}
+	_board[x][y].setType(STANDARD);
 
 	std::cout << "DEBUG points: " << points << std::endl;
 	std::cout << "DEBUG multiplier: " << multiplier << std::endl;
