@@ -3,29 +3,29 @@
 
 static unsigned int	getWordMultiplier(const Tile &currentTile)
 {
-		switch (currentTile.getType())
-		{
+	switch (currentTile.getType())
+	{
 
-			case WORD_DOUBLE:
-				return (2);
-			case WORD_TRIPLE:
-				return (3);
-			default:
-				return (1);
-		}
+		case WORD_DOUBLE:
+			return (2);
+		case WORD_TRIPLE:
+			return (3);
+		default:
+			return (1);
+	}
 }
 
 static unsigned int	getLetterMultiplier(const Tile &currentTile)
 {
-		switch (currentTile.getType())
-		{
-			case LETTER_DOUBLE:
-				return (2);
-			case LETTER_TRIPLE:
-				return (3);
-			default:
-				return (1);
-		}
+	switch (currentTile.getType())
+	{
+		case LETTER_DOUBLE:
+			return (2);
+		case LETTER_TRIPLE:
+			return (3);
+		default:
+			return (1);
+	}
 }
 
 int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
@@ -47,12 +47,12 @@ int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 		points += getPoints(currentTile.getLetter()) * getLetterMultiplier(currentTile);
 		multiplier = (getWordMultiplier(currentTile) > multiplier) ? getWordMultiplier(currentTile) : multiplier;
 
-		/*
+
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
 					" type: " << currentTile.getType()<< \
 					" completes a word: " << currentTile.getCompletesWord() << std::endl;
-		*/
+
 
 		if (perpDir == DOWN)
 			startX++;
@@ -60,24 +60,25 @@ int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 			startY++;
 	}
 
-	return (points);
+	return (points /* * multiplier */);
 }
 
 int Board::countPoints(int x, int y, std::string word, t_dir dir)
 {
 	unsigned int	points = 0;
+	unsigned int	perpPoints = 0;
 	unsigned int	multiplier = 1;
 
 	for (size_t i = 0; i < word.size(); i++)
 	{
 		Tile currentTile = getTile(x, y);
 
-		/*
+
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
 					" type: " << currentTile.getType()<< \
 					" completes a word: " << currentTile.getCompletesWord() << std::endl;
-		*/
+
 
 		points += getPoints(currentTile.getLetter()) * getLetterMultiplier(currentTile);
 		multiplier = (getWordMultiplier(currentTile) > multiplier) ? \
@@ -86,15 +87,13 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 		t_dir	oppDir = (dir == RIGHT) ? DOWN : RIGHT;
 
 		if (currentTile.getCompletesWord())
-			points += countPerpendicularPoints(x, y, oppDir);
+			perpPoints += countPerpendicularPoints(x, y, oppDir);
 		_board[x][y].setType(STANDARD);
 		_board[x][y].setCompletesWord(false);
 		(dir == RIGHT) ? y++ : x++;
 	}
 
-	std::cout << "DEBUG points: " << points << std::endl;
-	std::cout << "DEBUG multiplier: " << multiplier << std::endl;
-	std::cout << "DEBUG points scored at this round: " << points * multiplier << std::endl;
+	std::cout << "DEBUG points scored at this round: " << points * multiplier + perpPoints << std::endl;
 
-	return (points * multiplier);
+	return (points * multiplier + perpPoints);
 }

@@ -3,12 +3,13 @@
 
 // TODO
 // add tile drawing and move checking according to available tiles
+// handle wilcard tiles
 // work on algo and prompt for validation
 // implement UNDO command
 // UI/UX improvements
 
 // BUG
-// cannot just put an 's' at end of word
+// parsing input does not recognize 1 letter words (s end of word)
 int main(void)
 {
 	try
