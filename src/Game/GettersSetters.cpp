@@ -17,7 +17,6 @@ void Board::setTile(int x, int y, char c)
 		throw std::out_of_range("Error: invalid board coordinates (" + std::to_string(x) + ", " + std::to_string(y) + ").");
 }
 
-// TODO getTile does not return completesWord !!!
 const Tile& Board::getTile(int x, int y) const
 {
 	if (y >= 0 && y < BOARD_SIZE && x >= 0 && x < BOARD_SIZE)
