@@ -23,12 +23,6 @@
 class Tile;
 class Player;
 
-typedef enum e_mode
-{
-	TRY,
-	PLAY,
-}				t_mode;
-
 typedef enum e_dir
 {
 	RIGHT,
@@ -63,7 +57,7 @@ class Board
 
 		// Game manipulation
 		void		opponentPlay();
-		bool		playWord(int x, int y, std::string word, t_dir direction, t_mode mode);
+		bool		playWord(int x, int y, std::string word, t_dir direction);
 
 		// Game logic
 		int		countPoints(int x, int y, std::string word, t_dir dir);

@@ -62,7 +62,7 @@ void Board::opponentPlay(void)
 	}
 
 	if (finalCheck == RIGHT || finalCheck == DOWN)
-		playWord(x, y, word, finalCheck, PLAY);
+		playWord(x, y, word, finalCheck);
 	else
 		throw std::logic_error("Error: invalid move.");
 
@@ -70,7 +70,7 @@ void Board::opponentPlay(void)
 	_opponent->incrementPoints(points);
 }
 
-bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mode)
+bool Board::playWord(int x, int y, std::string word, t_dir direction)
 {
 	Tile	currentTile;
 	bool	isCenter = false;
@@ -82,18 +82,14 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 			return (false);
 		
 		currentTile = getTile(x, y);
-
 		if (currentTile.getLetter() != EMPTY && currentTile.getLetter() != word[i])
 			return (false);
 
-		if (mode == PLAY)
-		{
-			setTile(x, y, word[i]);
-			if (placedATile == false && currentTile.getLetter() != word[i])
-				placedATile = true;
-			if (/*placedATile && */currentTile.getLetter() == EMPTY && tileCompletesWord(x, y, direction))
-				_board[x][y].setCompletesWord(true);
-		}
+		setTile(x, y, word[i]);
+		if (placedATile == false && currentTile.getLetter() != word[i])
+			placedATile = true;
+		if (/*placedATile && */currentTile.getLetter() == EMPTY && tileCompletesWord(x, y, direction))
+			_board[x][y].setCompletesWord(true);
 
 		if (y == 7 && x == 7)
 			isCenter = true;
@@ -109,8 +105,7 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction, t_mode mod
 	if ((_firstTurn && !isCenter) || placedATile == false)
 		return (false);
 
-	if (mode == PLAY)
-		_firstTurn = false;
+	_firstTurn = false;
 
 	return (true);
 }

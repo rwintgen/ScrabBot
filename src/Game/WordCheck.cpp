@@ -7,13 +7,13 @@ t_dir Board::checkWord(int x, int y, std::string word)
 	bool validRight = false;
 	bool validDown = false;
 
-	if (tmpBoard.playWord(x, y, word, RIGHT, PLAY))
+	if (tmpBoard.playWord(x, y, word, RIGHT))
 		validRight = tmpBoard.checkBoard(tmpBoard);
 	// std::cout << "DEBUG validRight: " << validRight << std::endl;
 
 	tmpBoard = *this;
 
-	if (tmpBoard.playWord(x, y, word, DOWN, PLAY))
+	if (tmpBoard.playWord(x, y, word, DOWN))
 		validDown = tmpBoard.checkBoard(tmpBoard);
 	// std::cout << "DEBUG validDown: " << validDown << std::endl;
 	
@@ -110,77 +110,6 @@ t_dir	Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
 	else
 		throw std::logic_error("Error: word must be connected to existing tiles.");
 }
-
-// TODO check that it works on edges
-// edit: it does not.
-/*
-t_dir Board::checkFrontiers(int x, int y, std::string word, t_dir dir)
-{
-	Tile	currentTile;
-	bool 	right = false;
-	bool 	down = false;
-	int		currentX = x;
-	int		currentY = y;
-
-	if (_firstTurn)
-		return (BOTH);
-
-	if (dir == RIGHT || dir == BOTH)
-	{
-		for (size_t i = 0; i < word.size(); i++)
-		{
-			currentTile = getTile(currentX, currentY);
-
-			if (i < word.size() && \
-				(getTile(currentX - 1, currentY).getLetter() != EMPTY || \
-				getTile(currentX + 1, currentY).getLetter() != EMPTY))
-				right = true;
-			else if (i == 0 && currentX > 0 && getTile(currentX, currentY - 1).getLetter() != EMPTY)
-				right = true;
-			else if (i == word.size() - 1 && currentY < BOARD_SIZE - 1 && getTile(currentX, currentY + 1).getLetter() != EMPTY) 
-				right = true;
-			currentY++;
-
-			if (right == true)
-				break ;
-		}
-	}
-
-	currentX = x;
-	currentY = y;
-
-	if (dir == DOWN || dir == BOTH)
-	{
-		for (size_t i = 0; i < word.size(); i++)
-		{
-			currentTile = getTile(currentX, currentY);
-
-			if (i < word.size() && \
-				(getTile(currentX, currentY - 1).getLetter() != EMPTY || \
-				getTile(currentX, currentY + 1).getLetter() != EMPTY))
-				down = true;
-
-			else if (i == 0 && currentY > 0 && getTile(currentX - 1, currentY).getLetter() != EMPTY)
-				down = true;
-			else if (i == word.size() - 1 && currentX < BOARD_SIZE - 1 && getTile(currentX + 1, currentY).getLetter() != EMPTY) 
-				down = true;
-			currentX++;
-
-			if (down == true)
-				break ;
-		}
-	}
-
-	if (right && down)
-		return (BOTH);
-	else if (right)
-		return (RIGHT);
-	else if (down)
-		return (DOWN);
-	else
-		throw std::logic_error("Error: word must be connected to existing tiles.");
-}
-*/
 
 bool Board::checkBoard(const Board &tmpBoard) const
 {
