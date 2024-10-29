@@ -47,14 +47,16 @@ void Board::printBoard()
 void Board::decrementBag(char c)
 {
 	auto it = _letters.find(c);
-	if (it != _letters.end() && it->second.first > 0)
+	
+	if (it != _letters.end())
 		(it->second.first)--;
 }
 
 void Board::incrementBag(char c)
 {
 	auto it = _letters.find(c);
-	if (it != _letters.end() && it->second.first > 0)
+
+	if (it != _letters.end())
 		(it->second.first)++;
 }
 

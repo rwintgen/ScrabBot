@@ -88,6 +88,7 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction)
 		setTile(x, y, word[i]);
 		if (placedATile == false && currentTile.getLetter() != word[i])
 			placedATile = true;
+
 		if (/*placedATile && */currentTile.getLetter() == EMPTY && tileCompletesWord(x, y, direction))
 			_board[x][y].setCompletesWord(true);
 
@@ -100,7 +101,11 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction)
 			y++;
 		else
 			throw std::logic_error("Error: invalid direction.");
+
 	}
+
+	if (checkAvailableLetters() == false)
+		throw std::logic_error("Error: missing tile(s) for word: " + word);
 
 	if ((_firstTurn && !isCenter) || placedATile == false)
 		return (false);

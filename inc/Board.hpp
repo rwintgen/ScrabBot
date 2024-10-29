@@ -65,6 +65,7 @@ class Board
 		t_dir	checkWord(int x, int y, std::string word);
 		bool	checkBoard(const Board &tmpBoard) const;
 		t_dir	checkFrontiers(int x, int y, std::string word, t_dir dir);
+		bool	checkAvailableLetters();
 		bool	checkGameOver();
 
 		// Getters and setters

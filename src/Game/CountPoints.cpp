@@ -47,12 +47,12 @@ int Board::countPerpendicularPoints(int x, int y, t_dir perpDir)
 		points += getPoints(currentTile.getLetter()) * getLetterMultiplier(currentTile);
 		multiplier = (getWordMultiplier(currentTile) > multiplier) ? getWordMultiplier(currentTile) : multiplier;
 
-
+		/*
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
 					" type: " << currentTile.getType()<< \
 					" completes a word: " << currentTile.getCompletesWord() << std::endl;
-
+		*/
 
 		if (perpDir == DOWN)
 			startX++;

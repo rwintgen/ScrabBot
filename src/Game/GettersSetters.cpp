@@ -8,7 +8,7 @@ void Board::setTile(int x, int y, char c)
 		auto it = _letters.find(c);
 		if (it != _letters.end())
 		{
-			if (_board[x][y].getLetter() == EMPTY && it->second.first > 0)
+			if (_board[x][y].getLetter() == EMPTY /* && it->second.first > 0*/)
 				decrementBag(c);
 			_board[x][y].setLetter(c);
 		}	

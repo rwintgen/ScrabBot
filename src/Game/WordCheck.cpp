@@ -123,7 +123,8 @@ bool Board::checkBoard(const Board &tmpBoard) const
 				std::string horizontalWord = collectWord(tmpBoard, x, y, RIGHT);
 				if (horizontalWord.size() > 1 && _dict.find(horizontalWord) == _dict.end())
 				{
-					std::cout << "DEBUG Invalid horizontal word found: " << horizontalWord << std::endl;
+					// std::cout << "DEBUG Invalid horizontal word found: " << horizontalWord << std::endl;
+					// TODO throw exception here for readability?
 					return (false);
 				}
 			}
@@ -134,11 +135,22 @@ bool Board::checkBoard(const Board &tmpBoard) const
 				std::string verticalWord = collectWord(tmpBoard, x, y, DOWN);
 				if (verticalWord.size() > 1 && _dict.find(verticalWord) == _dict.end())
 				{
-					std::cout << "DEBUG Invalid vertical word found: " << verticalWord << std::endl;
+					// std::cout << "DEBUG Invalid vertical word found: " << verticalWord << std::endl;
+					// TODO throw exception here for readability?
 					return (false);
 				}
 			}
 		}
+	}
+	return (true);
+}
+
+bool Board::checkAvailableLetters(void)
+{
+	for (const auto& letter : _letters)
+	{
+		if (letter.second.first < 0)
+			return (false);
 	}
 	return (true);
 }

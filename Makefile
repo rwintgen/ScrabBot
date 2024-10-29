@@ -7,7 +7,7 @@ OBJ_DIR = obj
 
 SRCS = main.cpp \
 	   $(SRC_DIR)/Algo/FindBestMove.cpp \
-	   $(SRC_DIR)/Game/Board.cpp \
+	   $(SRC_DIR)/Game/Play.cpp \
 	   $(SRC_DIR)/Game/CountPoints.cpp \
 	   $(SRC_DIR)/Game/GettersSetters.cpp \
 	   $(SRC_DIR)/Game/Init.cpp \

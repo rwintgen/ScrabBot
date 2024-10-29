@@ -2,7 +2,6 @@
 #include "Tile.hpp"
 
 // TODO
-// add tile drawing and move checking according to available tiles
 // handle wilcard tiles
 // work on algo and prompt for validation
 // implement UNDO command
