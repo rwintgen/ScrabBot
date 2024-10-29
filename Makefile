@@ -20,22 +20,30 @@ OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 EXEC = ScrabBot
 
-all: ascii_art_compil $(EXEC)
+RED = \033[0;31m
+GREEN = \033[0;32m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+MAGENTA = \033[0;35m
+CYAN = \033[0;36m
+RESET = \033[0m
 
-ascii_art_compil:
-	@echo "      _.--._  _.--._             "
-	@echo ",-=.-\":;:;:;\':;:;:;\"-._         "
-	@echo "\\\\\:;:;:;:;:;\:;:;:;:;:;\        "
-	@echo " \\\\\:;:;:;:;:;\:;:;:;:;:;\       "
-	@echo "  \\\\\:;:;:;:;:;\:;:;:;:;:;\      "
-	@echo "   \\\\\:;:;:;:;:;\:;::;:;:;:\     "
-	@echo "    \\\\\;:;::;:;:;\:;:;:;::;:\    "
-	@echo "     \\\\\;;:;:_:--:\:_:--:_;:;\   "
-	@echo "      \\\\\_.-\"      :      \"-._\  "
-	@echo "       \\\`_..--\"\"--.;.--\"\"--.._=) "
-	@echo "        \"\"                       "
+all: compiling_message $(EXEC) compiled_message
 
-ascii_art_decompil:
+compiling_message:
+	@clear
+	@echo "$(GREEN)\nCompiling ScrabBot...$(RESET)"
+
+compiled_message:
+	@echo "$(GREEN)\nScrabBot compiled!\n$(RESET)"
+
+cleaning_message:
+	@clear
+	@echo "\nCleaning ScrabBot...$(RESET)" 
+
+cleaned_message:
+	@echo "$(RED)\nScrabBot cleaned.$(RESET)"
+	@echo "$(RED)Goodbye!\n"
 
 $(EXEC): $(OBJS)
 	@$(CC) $(CFLAGS) -o $@ $^
@@ -44,8 +52,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
+clean: cleaning_message
 	@rm -rf $(OBJ_DIR)
+	@$(MAKE) --no-print-directory cleaned_message
+
 
 fclean: clean
 	@rm -rf $(EXEC)
