@@ -2,7 +2,7 @@
 #include "Tile.hpp"
 
 // TODO
-// handle wilcard tiles
+// handle wilcard tiles points counting
 // work on algo and prompt for validation
 // implement UNDO command
 // UI/UX improvements
