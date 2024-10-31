@@ -18,6 +18,7 @@ Tile& Tile::operator=(const Tile &src)
 	_letter = src._letter;
 	_type = src._type;
 	_completesWord = src._completesWord;
+	_isWildcard = false;
 	return (*this);
 }
 
@@ -49,4 +50,14 @@ void Tile::setCompletesWord(bool completesWord)
 bool Tile::getCompletesWord() const
 {
 	return (_completesWord);
+}
+
+void Tile::setWildcard(bool wildcard)
+{
+	_isWildcard = wildcard;
+}
+
+bool Tile::getWildcard() const
+{
+	return (_isWildcard);
 }

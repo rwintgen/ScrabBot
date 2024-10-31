@@ -4,7 +4,7 @@
 static std::string getInput(void)
 {
 	std::string	input;
-	std::regex	pattern(R"(^[A-O](1[0-5]|[1-9])\s[a-zA-Z]+)");
+	std::regex	pattern(R"(^[A-O](1[0-5]|[1-9])\s[a-zA-Z_]+)");
 
 	while (std::cin)
 	{
@@ -70,6 +70,8 @@ void Board::opponentPlay(void)
 	_opponent->incrementPoints(points);
 }
 
+// TODO debug this function for wildcards
+// edit: does the issue come ffrom this function?
 bool Board::playWord(int x, int y, std::string word, t_dir direction)
 {
 	Tile	currentTile;
@@ -78,14 +80,23 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction)
 
 	for (size_t i = 0; i < word.size(); i++)
 	{
+		bool	isWildcard = false;
+
 		if (x >= BOARD_SIZE || y >= BOARD_SIZE)
 			return (false);
-		
+
+		if (i < word.size() - 1 && word[i] == '_')
+		{
+			word.erase(i, 1);
+			isWildcard = true;
+		}
+
 		currentTile = getTile(x, y);
 		if (currentTile.getLetter() != EMPTY && currentTile.getLetter() != word[i])
 			return (false);
 
 		setTile(x, y, word[i]);
+		_board[x][y].setWildcard(isWildcard);
 		if (placedATile == false && currentTile.getLetter() != word[i])
 			placedATile = true;
 
@@ -101,7 +112,6 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction)
 			y++;
 		else
 			throw std::logic_error("Error: invalid direction.");
-
 	}
 
 	if (checkAvailableLetters() == false)

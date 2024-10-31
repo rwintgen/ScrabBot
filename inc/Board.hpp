@@ -54,7 +54,6 @@ class Board
 		std::string	collectWord(const Board &tmpBoard, int startY, int startX, t_dir dir) const;
 		bool		tileCompletesWord(int x, int y, t_dir dir) const;
 
-
 		// Game manipulation
 		void		opponentPlay();
 		bool		playWord(int x, int y, std::string word, t_dir direction);

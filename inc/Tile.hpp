@@ -37,9 +37,12 @@ class Tile
 		t_type	getType() const;
 		void	setCompletesWord(bool completesWord);
 		bool	getCompletesWord() const;
+		void	setWildcard(bool wildcard);
+		bool	getWildcard() const;
 
 	private:
 		char	_letter;
 		t_type	_type;
 		bool	_completesWord;
+		bool	_isWildcard;
 };

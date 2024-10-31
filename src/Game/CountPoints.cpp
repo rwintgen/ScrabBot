@@ -73,6 +73,9 @@ int Board::countPoints(int x, int y, std::string word, t_dir dir)
 	{
 		Tile currentTile = getTile(x, y);
 
+		if (i < word.size() - 1 && word[i] == '_')
+			word.erase(i, 1);
+
 
 		std::cout << "DEBUG currentTile: " << currentTile.getLetter() << \
 					" worth: " << getPoints(currentTile.getLetter()) << \
