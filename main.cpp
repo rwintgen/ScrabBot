@@ -7,8 +7,6 @@
 // implement UNDO command
 // UI/UX improvements
 
-// BUG
-// parsing input does not recognize 1 letter words (s end of word)
 int main(void)
 {
 	try

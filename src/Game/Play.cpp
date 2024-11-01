@@ -63,6 +63,8 @@ void Board::opponentPlay(void)
 
 	if (finalCheck == RIGHT || finalCheck == DOWN)
 		playWord(x, y, word, finalCheck);
+	else if (finalCheck == BOTH)
+		playWord(x, y, word, DOWN);
 	else
 		throw std::logic_error("Error: invalid move.");
 
