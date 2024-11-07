@@ -2,7 +2,7 @@
 #include "Tile.hpp"
 
 // TODO
-// handle wilcard tiles points counting
+// fix wildcard decrementing replaced letter (e.g: h7 ZOO; f9 _ZOO)
 // work on algo and prompt for validation
 // implement UNDO command
 // UI/UX improvements

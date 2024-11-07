@@ -18,7 +18,7 @@ Tile& Tile::operator=(const Tile &src)
 	_letter = src._letter;
 	_type = src._type;
 	_completesWord = src._completesWord;
-	_isWildcard = false;
+	_isWildcard = src._isWildcard;
 	return (*this);
 }
 
