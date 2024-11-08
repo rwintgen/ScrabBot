@@ -3,7 +3,7 @@
 
 // TODO
 // work on algo and prompt for validation
-// implement UNDO command
+// implement UNDO, EXIT commands
 // UI/UX improvements
 
 int main(void)

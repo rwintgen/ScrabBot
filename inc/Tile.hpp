@@ -37,6 +37,8 @@ class Tile
 		t_type	getType() const;
 		void	setCompletesWord(bool completesWord);
 		bool	getCompletesWord() const;
+		void	setPlayable(bool playable);
+		bool	getPlayable() const;
 		void	setWildcard(bool wildcard);
 		bool	getWildcard() const;
 
@@ -45,4 +47,5 @@ class Tile
 		t_type	_type;
 		bool	_completesWord;
 		bool	_isWildcard;
+		bool	_isPlayable;
 };
