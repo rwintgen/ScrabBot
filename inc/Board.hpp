@@ -16,6 +16,7 @@
 # define LIGHT_BLUE	"\033[36m"
 # define DARK_BLUE	"\033[34m"
 # define BROWN_BG	"\033[48;5;94m"
+# define GREY_BG	"\033[48;5;240m"
 # define WHITE		"\033[37m"
 
 # define BOARD_SIZE 15

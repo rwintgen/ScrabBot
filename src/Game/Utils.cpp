@@ -15,7 +15,12 @@ void Board::printBoard()
 		for (int y = 0; y < BOARD_SIZE; y++)
 		{
 			if (_board[x][y].getLetter() != EMPTY)
-				std::cout << BROWN_BG << _board[x][y].getLetter() << RESET;
+			{
+				if (_board[x][y].getWildcard() == true)
+					std::cout << GREY_BG << _board[x][y].getLetter() << RESET;
+				else
+					std::cout << BROWN_BG << _board[x][y].getLetter() << RESET;
+			}
 			else
 			{
 				switch (_board[x][y].getType())
