@@ -3,6 +3,8 @@
 
 void Board::setTile(int x, int y, char c)
 {
+	char	cCopy = c;
+
 	if (y >= 0 && y < BOARD_SIZE && x >= 0 && x < BOARD_SIZE)
 	{
 		auto it = _letters.find(c);
@@ -11,7 +13,7 @@ void Board::setTile(int x, int y, char c)
 			(_board[x][y].getWildcard()) ? c = '_' : c;
 			if (_board[x][y].getLetter() == EMPTY /* && it->second.first > 0*/)
 				decrementBag(c);
-			_board[x][y].setLetter(c);
+			_board[x][y].setLetter(cCopy);
 		}	
 	}
 	else

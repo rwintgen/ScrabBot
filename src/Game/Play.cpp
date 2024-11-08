@@ -97,8 +97,8 @@ bool Board::playWord(int x, int y, std::string word, t_dir direction)
 		if (currentTile.getLetter() != EMPTY && currentTile.getLetter() != word[i])
 			return (false);
 
-		setTile(x, y, word[i]);
 		_board[x][y].setWildcard(isWildcard);
+		setTile(x, y, word[i]);
 		if (placedATile == false && currentTile.getLetter() != word[i])
 			placedATile = true;
 
