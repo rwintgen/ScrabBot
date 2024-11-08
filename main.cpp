@@ -20,8 +20,17 @@ int main(void)
 		{
 			if (currentState.getTurn() == true)
 			{
-				tmpBoard = currentState.findBestMove();
-				currentState = tmpBoard;
+				try
+				{
+					currentState.setPlayerTiles();
+					currentState = currentState.findBestMove();
+				}
+				catch (const std::exception &e)
+				{
+					std::cerr << e.what() << std::endl;;
+					currentState = tmpBoard;
+					continue ;
+				}
 			}
 			else
 			{

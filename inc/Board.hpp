@@ -76,6 +76,7 @@ class Board
 		void		setLang(t_lang lang);
 		t_lang		getLang() const;
 		int			getPoints(char c) const;
+		void		setPlayerTiles();
 
 		// Algorithm
 		Board&	findBestMove();

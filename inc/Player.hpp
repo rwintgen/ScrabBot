@@ -19,7 +19,7 @@ class Player
 
 		// Getters and setters
 		std::string	getLetters() const;
-		void		setLetters(char c);
+		void		setLetters(std::string letters);
 		std::string	getLetter(int n) const;
 		void		setLetter(int n, char c);
 

@@ -40,10 +40,9 @@ std::string Player::getLetters() const
 	return (_letters);
 }
 
-void Player::setLetters(char c)
+void Player::setLetters(std::string letters)
 {
-	for (size_t i = 0; i < 7; i++)
-		_letters[i] = c;
+	_letters = letters;
 }
 
 std::string Player::getLetter(int n) const
